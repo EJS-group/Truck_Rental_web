@@ -1,26 +1,27 @@
+
 import Tata from "../components/Tata";
 import BookTruck from "../components/BookTruck";
-import PlanTrip from "../components/PlanTrip";
 import PickTruck from "../components/PickTruck";
-import Banner from "../components/Banner";
-import ChooseUs from "../components/ChooseUs";
-import Testimonials from "../components/Testimonials";
 import Faq from "../components/Faq";
-import Download from "../components/Download";
 import Footer from "../components/Footer";
+import Table from "../components/Table";
+import { useState } from "react";
+
 
 function Home() {
+  const [bookings, setBookings] = useState([]);
+
+  const addBooking = (booking) => {
+    setBookings((prev) => [...prev, booking]);
+  };
+
   return (
     <>
       <Tata />
-      <BookTruck />
-      <PickTruck />
-      <PlanTrip />  
-      <Banner />
-      <ChooseUs />
-      <Testimonials />
+      <BookTruck addBooking={addBooking} />
+      <Table bookings={bookings} />
+      <PickTruck /> 
       <Faq />
-      <Download />
       <Footer />
     </>
   );
