@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Logo from "../images/logo/logo.png";
 import { useState } from "react";
+import { FaUserAlt, FaUserPlus  } from 'react-icons/fa';
 
 function Navbar() {
   const [nav, setNav] = useState(false);
@@ -98,9 +99,11 @@ function Navbar() {
           </ul>
           <div className="navbar__buttons">
             <Link className="navbar__buttons__sign-in" to="/">
+            <FaUserAlt />
               Sign In
             </Link>
             <Link className="navbar__buttons__register" to="/">
+            <FaUserPlus />
               Register
             </Link>
           </div>

@@ -6,7 +6,7 @@ import TataLpt from "../images/truck-big/lpt.jpg";
 import AshokAVTR from "../images/truck-big/ashok avtr.jpg";
 import AshokEco from "../images/truck-big/ecomet.jpg";
 
-function BookTruck() {
+function BookTruck({ addBooking }) {
   const [modal, setModal] = useState(false); //  class - active-modal
 
   // booking truck
@@ -92,6 +92,22 @@ function BookTruck() {
   // confirm modal booking
   const confirmBooking = (e) => {
     e.preventDefault();
+    // Save booking data to parent
+    addBooking({
+      truckType,
+      pickUp,
+      dropOff,
+      pickTime,
+      dropTime,
+      name,
+      lastName,
+      phone,
+      age,
+      email,
+      address,
+      city,
+      zipcode
+    });
     setModal(!modal);
     const doneMsg = document.querySelector(".booking-done");
     doneMsg.style.display = "flex";
