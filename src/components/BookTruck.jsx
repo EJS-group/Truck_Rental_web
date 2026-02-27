@@ -31,22 +31,29 @@ function BookTruck({ addBooking }) {
 
   // taking value of modal inputs
   const handleName = (e) => {
-    setName(e.target.value);
+    const value = e.target.value;
+    const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+    setName(capitalizedValue);
   };
 
   const handleLastName = (e) => {
-    setLastName(e.target.value);
+    const value = e.target.value;
+    const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+    setLastName(capitalizedValue);
   };
 
   const handlePhone = (e) => {
-    setPhone(e.target.value);
+    const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+    if (value.length <= 10) {
+      setPhone(value);
+    }
   };
 
   const handleAge = (e) => {
     setAge(e.target.value);
   };
 
-  const handleEmail = (e) => {
+  const handleGmail = (e) => {
     setEmail(e.target.value);
   };
 
@@ -94,6 +101,19 @@ function BookTruck({ addBooking }) {
   // confirm modal booking
   const confirmBooking = async (e) => {
     e.preventDefault();
+
+    // Gmail validation regex
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid Gmail address (e.g., user@gmail.com)");
+      return;
+    }
+
+    if (phone.length !== 10) {
+      alert("Phone number must be exactly 10 digits");
+      return;
+    }
+
     setLoading(true);
 
     const bookingData = {
@@ -247,16 +267,16 @@ function BookTruck({ addBooking }) {
                   </label>
                   <select value={truckType} onChange={handleCar}>
                     <option>Select your truck type</option>
-    <option value="Tata Ace gold">Tata Ace gold</option>
-    <option value="Tata Ace EV">Tata Ace EV</option>
-    <option value="Tata 407 Gold SFC">Tata 407 Gold SFC</option>
-    <option value="Tata 1109g LPT">
-      Tata 1109g LPT
-    </option>
-    <option value="Ashok AVTR 1920-4x2 Haulage">Ashok AVTR 1920-4x2 Haulage</option>
-    <option value="Ashok Ecomet 1015">Ashok Ecomet 1015</option>
-  </select>
-</div>
+                    <option value="Tata Ace gold">Tata Ace gold</option>
+                    <option value="Tata Ace EV">Tata Ace EV</option>
+                    <option value="Tata 407 Gold SFC">Tata 407 Gold SFC</option>
+                    <option value="Tata 1109g LPT">
+                      Tata 1109g LPT
+                    </option>
+                    <option value="Ashok AVTR 1920-4x2 Haulage">Ashok AVTR 1920-4x2 Haulage</option>
+                    <option value="Ashok Ecomet 1015">Ashok Ecomet 1015</option>
+                  </select>
+                </div>
 
                 <div className="box-form__car-type">
                   <label>
@@ -470,7 +490,7 @@ function BookTruck({ addBooking }) {
                 </label>
                 <input
                   value={email}
-                  onChange={handleEmail}
+                  onChange={handleGmail}
                   type="email"
                   placeholder="Enter your email address"
                 ></input>

@@ -55,6 +55,7 @@ const Table = ({ bookings }) => {
                 <tr className="table_row">
                   {[
                     { label: "ID", key: "id" },
+                    { label: "Name", key: "name" },
                     { label: "Truck Type", key: "truckType" },
                     { label: "Pick-up", key: "pickUp" },
                     { label: "Drop-off", key: "dropOff" },
@@ -77,7 +78,7 @@ const Table = ({ bookings }) => {
               <tbody>
                 {!hasBookings ? (
                   <tr className="table_row">
-                    <td className="table_data" colSpan="8" style={{ textAlign: "center" }}>
+                    <td className="table_data" colSpan="9" style={{ textAlign: "center" }}>
                       No bookings yet.
                     </td>
                   </tr>
@@ -85,6 +86,7 @@ const Table = ({ bookings }) => {
                   paginatedData.map((booking, idx) => (
                     <tr key={idx} className="table_row">
                       <td className="table_data">{booking.id}</td>
+                      <td className="table_data">{booking.name}</td>
                       <td className="table_data">{booking.truckType}</td>
                       <td className="table_data">{booking.pickUp}</td>
                       <td className="table_data">{booking.dropOff}</td>
