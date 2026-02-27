@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Loader from "./Loader";
 import TruckAce from "../images/truck-big/ace.jpg";
 import TataEv from "../images/truck-big/ev.jpg";
 import TataGold from "../images/truck-big/sfc.jpg";
@@ -8,6 +9,7 @@ import AshokEco from "../images/truck-big/ecomet.jpg";
 
 function BookTruck({ addBooking }) {
   const [modal, setModal] = useState(false); //  class - active-modal
+  const [loading, setLoading] = useState(false); // loading state
 
   // booking truck
   const [truckType, setTruckType] = useState("");
@@ -90,10 +92,11 @@ function BookTruck({ addBooking }) {
   }, [modal]);
 
   // confirm modal booking
-  const confirmBooking = (e) => {
+  const confirmBooking = async (e) => {
     e.preventDefault();
-    // Save booking data to parent
-    addBooking({
+    setLoading(true);
+
+    const bookingData = {
       truckType,
       pickUp,
       dropOff,
@@ -107,10 +110,56 @@ function BookTruck({ addBooking }) {
       address,
       city,
       zipcode
-    });
-    setModal(!modal);
-    const doneMsg = document.querySelector(".booking-done");
-    doneMsg.style.display = "flex";
+    };
+
+    try {
+      // Add a simulated loading time of 500ms
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      const response = await fetch("http://127.0.0.1:5001/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bookingData)
+      });
+
+      if (response.ok) {
+        const savedBooking = await response.json();
+        console.log("Booking confirmed by server:", savedBooking);
+        addBooking(savedBooking);
+        setModal(false);
+
+        // Reset the form data after successful booking
+        setTruckType("");
+        setPickUp("");
+        setDropOff("");
+        setPickTime("");
+        setDropTime("");
+        setTruckImg("");
+        setName("");
+        setLastName("");
+        setPhone("");
+        setAge("");
+        setEmail("");
+        setAddress("");
+        setCity("");
+        setZipCode("");
+
+        const doneMsg = document.querySelector(".booking-done");
+        if (doneMsg) doneMsg.style.display = "flex";
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Server responded with error:", response.status, errorData);
+        alert("Failed to save booking. Please check the backend console.");
+      }
+
+    } catch (error) {
+      console.error("Network error when saving booking:", error);
+      alert("Network error. Is the backend server running at http://127.0.0.1:5001?");
+    } finally {
+      setLoading(false);
+    }
   };
 
   // taking value of booking inputs
@@ -153,7 +202,7 @@ function BookTruck({ addBooking }) {
     case "Ashok AVTR 1920-4x2 Haulage":
       imgUrl = AshokAVTR;
       break;
-    case "Ashok  Ecomet 1015":
+    case "Ashok Ecomet 1015":
       imgUrl = AshokEco;
       break;
     default:
@@ -168,6 +217,7 @@ function BookTruck({ addBooking }) {
 
   return (
     <>
+      {loading && <Loader />}
       <section id="booking-section" className="book-section">
         {/* overlay */}
         <div
@@ -197,16 +247,16 @@ function BookTruck({ addBooking }) {
                   </label>
                   <select value={truckType} onChange={handleCar}>
                     <option>Select your truck type</option>
-                    <option value="Tata Ace gold">Tata Ace gold</option>
-                    <option value="Tata Ace EV">Tata Ace EV</option>
-                    <option value="Tata 407 Gold SFC">Tata 407 Gold SFC</option>
-                    <option value="Tata 1109g LPT">
-                      Tata 1109g LPT
-                    </option>
-                    <option value="Ashok Leyland AVTR  Haulage">Ashok Leyland AVTR 1920-4x2 Haulage</option>
-                    <option value="Ashok Leyland Ecomet 1015">Ashok Leyland Ecomet 1015</option>
-                  </select>
-                </div>
+    <option value="Tata Ace gold">Tata Ace gold</option>
+    <option value="Tata Ace EV">Tata Ace EV</option>
+    <option value="Tata 407 Gold SFC">Tata 407 Gold SFC</option>
+    <option value="Tata 1109g LPT">
+      Tata 1109g LPT
+    </option>
+    <option value="Ashok AVTR 1920-4x2 Haulage">Ashok AVTR 1920-4x2 Haulage</option>
+    <option value="Ashok Ecomet 1015">Ashok Ecomet 1015</option>
+  </select>
+</div>
 
                 <div className="box-form__car-type">
                   <label>
@@ -475,7 +525,12 @@ function BookTruck({ addBooking }) {
             </span>
 
             <div className="reserve-button">
-              <button onClick={confirmBooking}>Reserve Now</button>
+              <button
+                onClick={confirmBooking}
+                disabled={loading}
+              >
+                {loading ? "Reserving..." : "Reserve Now"}
+              </button>
             </div>
           </form>
         </div>
