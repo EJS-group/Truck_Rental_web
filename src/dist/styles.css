@@ -28,7 +28,6 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
 }
 
 html {
@@ -48,11 +47,7 @@ body {
   padding: 0 2.5rem !important;
 }
 
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #ff4d30 #ffffff;
-}
+
 
 /* Chrome, Edge and Safari */
 *::-webkit-scrollbar {
@@ -2411,18 +2406,20 @@ footer {
   min-width: 72rem;
 }
 
-.table_row {
-  background: linear-gradient(90deg, #ff4d30, #ff9154);
-  color: #ffffff;
+.table-container h2{
+  font-size: 2.4rem;
+  font-weight: 700;
 }
 
 .table_header {
   font-size: 1.8rem;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
-  padding: 1.2rem 1rem;
+  padding: 1rem 1rem;
   text-align: left;
   white-space: nowrap;
+  background: linear-gradient(90deg, #ff4d30);
+  color: #ffffff;
 }
 
 .table_header b {
@@ -2444,6 +2441,8 @@ footer {
   font-weight: 500;
   border-bottom: 1px solid #eee;
   white-space: nowrap;
+  padding: 0;font-size: 1.6rem;
+  font-weight: 400;
 }
 
 .table_empty {
