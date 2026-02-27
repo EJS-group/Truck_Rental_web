@@ -52,7 +52,7 @@ function Contact() {
             </div>
           </div>
         </div>
-        <div className="book-banner">
+        {/* <div className="book-banner">
           <div className="book-banner__overlay"></div>
           <div className="container">
             <div className="text-content">
@@ -63,7 +63,7 @@ function Contact() {
               </span>
             </div>
           </div>
-        </div>
+        </div> */}
         <Footer />
       </section>
     </>

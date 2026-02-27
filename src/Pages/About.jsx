@@ -25,8 +25,8 @@ function About() {
       <section className="about-page">
         <TataPages name="About" />
         <div className="container"> 
-            <div className="about-main__text">
-              <h3>About Company</h3>
+          <PlanTrip />
+           <div className="about-main__text">
               <h2>You start the engine and your adventure begins</h2>
               <p>
                 Certain but she but shyness why cottage. Guy the put instrument
@@ -37,9 +37,6 @@ function About() {
               </p>
              
             </div>
-
-         
-          <PlanTrip />
         </div>
       </section>
       <div className="book-banner">
