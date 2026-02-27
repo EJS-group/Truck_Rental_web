@@ -7,7 +7,7 @@ function TataPages({ name }) {
         <div className="tata-pages__overlay"></div>
         <div className="container">
           <div className="tata-pages__text">
-            <h3>{name}</h3>
+            <h4>{name}</h4>
             <p>
               <Link to="/">Home</Link> / {name}
             </p>

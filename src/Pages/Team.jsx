@@ -3,13 +3,11 @@ import TataPages from "../components/TataPages";
 import Person1 from "../images/team/1.png";
 import Person2 from "../images/team/2.png";
 import Person3 from "../images/team/3.png";
-
-
 function Team() {
   const teamPpl = [
-    { img: Person1, name: "Luke Miller", job: "Salesman" },
-    { img: Person2, name: "Michael Diaz", job: "Business Owner" },
-    { img: Person3, name: "Briana Ross", job: "Photographer" },
+    { img: Person1, name: "Jaya kumar", job: "Business Owner" },
+    { img: Person2, name: "kannan", job: "Sales Head" },
+    { img: Person3, name: "Xavier", job: "Accouts" },
    
   ];
   return (
@@ -31,7 +29,7 @@ function Team() {
             ))}
           </div>
         </div>
-        <div className="book-banner">
+        {/* <div className="book-banner">
           <div className="book-banner__overlay"></div>
           <div className="container">
             <div className="text-content">
@@ -42,7 +40,7 @@ function Team() {
               </span>
             </div>
           </div>
-        </div>
+        </div> */}
         <Footer />
       </section>
     </>
